@@ -1,76 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yendor Labs</title>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yendor Labs</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Courier New', monospace;
-      background: #0f0f0f;
-      color: #e0e0e0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-      letter-spacing: 2px;
-      text-shadow: 0 0 10px #7fff00;
-    }
-
-    p {
-      font-size: 1.2rem;
-      color: #aaa;
-      margin: 0.5rem 0;
-      line-height: 1.6;
-    }
-
-    .terminal {
-      font-family: monospace;
-      background: #111;
-      border: 1px solid #333;
-      padding: 1rem 2rem;
-      border-radius: 6px;
-      box-shadow: 0 0 20px rgba(127, 255, 0, 0.1);
-      max-width: 90vw;
-      text-align: center;
-      animation: flicker 2s infinite alternate;
-    }
-
-    @keyframes flicker {
-      0% { opacity: 1; }
-      100% { opacity: 0.95; }
-    }
-
-    .footer {
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Yendor Labs</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    background: #0f0f0f;
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem; /* Add some padding for smaller screens */
+    box-sizing: border-box; /* Ensures padding is included in height */
+    position: relative;
+  }
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px #7fff00;
+  }
+  /* The container for the visual roadmap */
+  .roadmap-container {
+    position: relative;
+    width: clamp(375px, 107vw, 750px); /* Responsive width */
+    height: 280px; /* Increased height for more vertical space */
+    margin-bottom: 3rem;
+  }
+  .milestone {
+    position: absolute;
+    font-size: 1.75rem;
+    white-space: nowrap;
+    text-shadow: 0 0 5px #555;
+  }
+  /* Positioning each milestone */
+  #sokoban {
+    top: 10px; /* Moved down for more space */
+    left: 0;
+  }
+  #castle {
+    top: 48%;
+    right: 8px; /* Aligned back to the edge */
+    transform: translateY(-50%);
+  }
+  #gehennom {
+    bottom: 10px; /* Moved up for more space */
+    left: -18px;
+  }
+  /* New Corridor Styles */
+  .corridor {
       position: absolute;
-      bottom: 1rem;
-      font-size: 0.9rem;
-      color: #444;
-    }
-  </style>
+      color: #555;
+      font-size: 1.5rem;
+      white-space: nowrap;
+      letter-spacing: 2px; /* Adjust spacing of the '#' characters */
+  }
+  /* Corridor 1: Slopes DOWN from Sokoban to Castle */
+  #corridor1 {
+      top: 25px; /* Adjusted for new spacing */
+      left: 172px;
+      transform: rotate(13deg); /* Shallower angle */
+      transform-origin: top left;
+  }
+  /* Corridor 2: Slopes UP from Gehennom to Castle */
+  #corridor2 {
+      bottom: 25px; /* Adjusted for new spacing */
+      left: 172px;
+      transform: rotate(-13deg); /* Shallower angle */
+      transform-origin: bottom left;
+  }
+  /* Style for the player character integrated into the corridor */
+  .player-char {
+      color: #7fff00;
+      font-weight: bold;
+      text-shadow: 0 0 8px #7fff00;
+  }
+  .roadmap-title {
+    font-size: 1.3rem;
+    color: #ccc;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .you-are-here {
+    position: absolute;
+    top: 30px;
+    left: 349px;
+    color: #7fff00;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    text-shadow: 0 0 5px #7fff00;
+  }
+  .arrow {
+    display: block;
+    font-size: 1.5rem;
+    margin-top: -37px;
+  }
+  .project-description {
+    font-size: 1.5rem;
+    color: #aaa;
+    line-height: 1.6;
+    max-width: 64ch; /* Limit line length for readability */
+    margin-bottom: 3rem;
+  }
+  .game-quote {
+    font-style: italic;
+    color: #777;
+    font-size: 1rem;
+    margin-bottom: 3rem;
+  }
+  .footer {
+    position: absolute;
+    bottom: 1rem;
+    font-size: 0.9rem;
+    color: #444;
+  }
+</style>
 </head>
 <body>
-  <div class="terminal">
-    <h1>Yendor Labs</h1>
-    <p>Evolving agents for complex worlds where traditional RL struggles.</p>
-    <p>
-      <em>Our approach uses genetic algorithms with LLM-powered mutation to discover novel strategies. Initial proving ground: the Dungeons of NetHack.</em>
-    </p>
+<div class="main-content">
+  <h1>Yendor Labs</h1>
+  <div class="project-description">
+    Pioneering a new form of hybrid intelligence, guiding evolutionary algorithms with LLMs to solve intractable problems.
   </div>
-  <div class="footer">contact@yendorlabs.xyz</div>
+  <div class="roadmap-title">Roadmap</div>
+  <div class="roadmap-container">
+    <!-- Milestones -->
+    <div id="sokoban" class="milestone"> Sokoban 🪨 </div>
+    <div id="castle" class="milestone"> 🏰 The Castle</div>
+    <div id="gehennom" class="milestone"> Gehennom 💀 </div>
+    <!-- Text-based Corridors -->
+    <div class="corridor" id="corridor1">##############<span class="player-char">@</span>#######</div>
+    <div class="corridor" id="corridor2">######################</div>
+    <!-- You are here indicator -->
+    <div class="you-are-here">
+      You are here
+      <span class="arrow"><h2>↓</h2></span>
+    </div>
+  </div>
+  <div class="game-quote">
+  </div>
+</div>
+<div class="footer">
+  © 2025 Yendor Labs
+</div>
 </body>
+</html>
 </html>
